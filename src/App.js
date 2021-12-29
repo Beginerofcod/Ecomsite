@@ -7,7 +7,7 @@ import Checkout from "./Checkout";
 import Login from "./Login";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
-
+import Payment from "./Payment";
 function App() {
   const [{}, dispatch] = useStateValue();
 
@@ -18,12 +18,12 @@ function App() {
       if (authUser) {
         dispatch({
           type: "SET_USER",
-          user: authUser
-        })
+          user: authUser,
+        });
       } else {
         dispatch({
           type: "SET_USER",
-          user: null
+          user: null,
         });
       }
     });
@@ -37,7 +37,13 @@ function App() {
             <Login />
           </Route>
           <Route path="/checkout">
+            <Header />
             <Checkout />
+          </Route>
+          <Route path="/payment">
+            <Header />
+            <Payment/>
+            
           </Route>
           <Route path="/">
             <Header />
