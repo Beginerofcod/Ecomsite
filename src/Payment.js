@@ -3,9 +3,20 @@ import { useStateValue } from "./StateProvider";
 import "./Payment.css";
 import CheckoutProduct from "./CheckoutProduct";
 import {Link} from "react-router-dom";
+import {db} from './firebase';
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
+
+  const handleSubmit =(e)=>{
+    db
+    .collection('users')
+    .doc(user?.uid)
+    .collection('orders')
+    .add({
+      basket: basket
+    })
+  }
   return (
     <div className="payment">
       <div className="payment__container">
@@ -40,6 +51,7 @@ function Payment() {
           </div>
           <div className="pyament__section">
                <h3>Payment Method</h3>
+               <button onClick={handleSubmit}>Save</button>
         </div>   
         <div className="payment__details">
 
